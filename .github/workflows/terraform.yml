@@ -73,6 +73,23 @@ jobs:
       uses: hashicorp/setup-terraform@v1
       with:
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+        # terraform_version: 0.14.4
+
+    - name: Run Terrascan
+      id: terrascan
+      uses: accurics/terrascan-action@main
+      with:
+        iac_type: 'terraform'
+        iac_version: 'v14'
+        policy_type: 'aws'
+        only_warn: true
+        iac_dir: infrastructure
+      #sarif_upload: true
+      #non_recursive:
+      #iac_dir:
+      #policy_path:
+      #skip_rules:
+      #config_path:
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
